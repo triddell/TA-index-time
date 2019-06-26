@@ -9,6 +9,7 @@ steps:
     tar --exclude='azure-pipelines.yml' --exclude='.git' --exclude='.gitignore' -czf $(Build.ArtifactStagingDirectory)/TA-index-time.spl .
   displayName: 'Package App'
 
-- task: PublishPipelineArtifact@0
+- task: PublishBuildArtifacts@1
   inputs:
-    targetPath: $(Build.ArtifactStagingDirectory)/TA-index-time.spl
+    pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time.spl
+    artifactName: 'TA-index-time'

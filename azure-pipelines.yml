@@ -22,8 +22,11 @@ steps:
     pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).spl
     artifactName: 'TA-index-time'
 
-- task: NuGetCommand@2
+- task: GithubRelease@0 
+  displayName: 'Create GitHub Release'      
   inputs:
-    command: 'push'
-    packagesToPush: '$(build.artifactStagingDirectory)/TA-index-time-*.spl'
-    publishVstsFeed: 'Release'
+    gitHubConnection: triddell
+    repositoryName: triddell/TA-index-time
+    tagSource: manual
+    tag: $(GitVersion.NuGetVersion)      
+    assets: $(Build.ArtifactStagingDirectory)/*.spl

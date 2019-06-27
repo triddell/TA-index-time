@@ -31,3 +31,4 @@ steps:
     tagSource: manual
     tag: $(GitVersion.NuGetVersion)      
     assets: $(Build.ArtifactStagingDirectory)/*.spl
+  condition: and(succeeded(), eq('true', variables['CUT_RELEASE']))

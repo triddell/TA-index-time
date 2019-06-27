@@ -14,6 +14,9 @@ steps:
 - script: mono $(Build.BinariesDirectory)/tools/GitVersion.CommandLine/tools/GitVersion.exe /output buildserver /nofetch
   displayName: 'Determine Version'
 
+- script: sed -i 's/$VERSION/$(GitVersion.NuGetVersion)/g' default/app.conf
+  displayName: 'Set Version in app.conf'
+
 - script: tar --exclude='azure-pipelines.yml' --exclude='.git' --exclude='.gitignore' --exclude='GitVersion.yml' -czf $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).spl .
   displayName: 'Package App'
 

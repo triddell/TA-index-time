@@ -17,13 +17,13 @@ steps:
 - script: sed -i 's/$VERSION/$(GitVersion.NuGetVersion)/g' default/app.conf
   displayName: 'Set Version in app.conf'
 
-- script: tar --exclude='azure-pipelines.yml' --exclude='.git' --exclude='.gitignore' --exclude='GitVersion.yml' -czf $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).spl .
+- script: tar --exclude='azure-pipelines.yml' --exclude='.git' --exclude='.gitignore' --exclude='GitVersion.yml' -czf $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).tgz .
   displayName: 'Package App'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Build Artifact'
   inputs:
-    pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).spl
+    pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).tgz
     artifactName: 'TA-index-time'
 
 - task: GithubRelease@0 
@@ -33,5 +33,5 @@ steps:
     repositoryName: triddell/TA-index-time
     tagSource: manual
     tag: $(GitVersion.NuGetVersion)      
-    assets: $(Build.ArtifactStagingDirectory)/*.spl
+    assets: $(Build.ArtifactStagingDirectory)/*.tgz
   condition: and(succeeded(), eq('true', variables['CUT_RELEASE']))

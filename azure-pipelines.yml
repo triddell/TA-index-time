@@ -21,3 +21,9 @@ steps:
   inputs:
     pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).spl
     artifactName: 'TA-index-time'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(build.artifactStagingDirectory)/TA-index-time-*.spl'
+    publishVstsFeed: 'Release'

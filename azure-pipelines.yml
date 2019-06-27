@@ -5,11 +5,19 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: |
-    tar --exclude='azure-pipelines.yml' --exclude='.git' --exclude='.gitignore' -czf $(Build.ArtifactStagingDirectory)/TA-index-time.spl .
+- task: NuGetCommand@2
+  inputs:
+    command: custom
+    arguments: install GitVersion.CommandLine -Version 4.0.0 -OutputDirectory $(Build.BinariesDirectory)/tools -ExcludeVersion
+  displayName: 'Install GitVersion'
+
+- script: mono $(Build.BinariesDirectory)/tools/GitVersion.CommandLine/tools/GitVersion.exe /output buildserver /nofetch
+  displayName: 'Determine Version'
+
+- script: tar --exclude='azure-pipelines.yml' --exclude='.git' --exclude='.gitignore' --exclude='GitVersion.yml' -czf $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).spl .
   displayName: 'Package App'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time.spl
-    artifactName: 'TA-index-time'
+    pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).spl
+    artifactName: 'TA-index-time-$(GitVersion.NuGetVersion)'

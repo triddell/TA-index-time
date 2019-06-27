@@ -17,13 +17,13 @@ steps:
 - script: sed -i 's/$VERSION/$(GitVersion.NuGetVersion)/g' default/app.conf
   displayName: 'Set Version in app.conf'
 
-- script: tar --exclude='azure-pipelines.yml' --exclude='.git' --exclude='.gitignore' --exclude='GitVersion.yml' -czf $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).tgz .
+- script: tar --exclude='azure-pipelines.yml' --exclude='.git' --exclude='.gitignore' --exclude='GitVersion.yml' -czf $(Build.ArtifactStagingDirectory)/TA-index-time_$(GitVersion.NuGetVersion).tgz ../TA-index-time
   displayName: 'Package App'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Build Artifact'
   inputs:
-    pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).tgz
+    pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time_$(GitVersion.NuGetVersion).tgz
     artifactName: 'TA-index-time'
 
 - task: GithubRelease@0 

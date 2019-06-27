@@ -18,6 +18,7 @@ steps:
   displayName: 'Package App'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifact'
   inputs:
     pathtoPublish: $(Build.ArtifactStagingDirectory)/TA-index-time-$(GitVersion.NuGetVersion).spl
     artifactName: 'TA-index-time'

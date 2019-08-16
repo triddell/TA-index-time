@@ -16,7 +16,10 @@ with open('gen/index-time-props.csv') as csvfile:
         config.set(row['SOURCETYPE'],'TIME_PREFIX', row['TIME_PREFIX'])
         config.set(row['SOURCETYPE'],'TIME_FORMAT', row['TIME_FORMAT'])
         config.set(row['SOURCETYPE'],'LINE_BREAKER', row['LINE_BREAKER'])
-        config.set(row['SOURCETYPE'],'MAX_TIMESTAMP_LOOKAHEAD', row['MAX_TIMESTAMP_LOOKAHEAD'])
+        if row['MAX_TIMESTAMP_LOOKAHEAD'] == "":
+            config.set(row['SOURCETYPE'],'MAX_TIMESTAMP_LOOKAHEAD', len(row['EXAMPLE']) + 5 )
+        else:
+            config.set(row['SOURCETYPE'],'MAX_TIMESTAMP_LOOKAHEAD', row['MAX_TIMESTAMP_LOOKAHEAD'])
         config.set(row['SOURCETYPE'],'SHOULD_LINEMERGE', 'false')
         config.set(row['SOURCETYPE'],'TRUNCATE', '99999')
         config.set(row['SOURCETYPE'],'TRANSFORMS-sourcetype', 'it-replace-sourcetype')

@@ -14,13 +14,13 @@ with open('gen/index-time-props.csv') as csvfile:
 
     for row in reader:
 
-        table += "| %s | %s | %s | %s | %s |\n" % ('`'+esc_bs(row['SOURCETYPE'])+'`', esc_bs(row['EXAMPLE']), esc_bs(row['TIME_PREFIX']), '`'+esc_bs(row['TIME_FORMAT'])+'`', '`'+esc_bs(row['LINE_BREAKER'])+'`')
+        table += "| %s | %s | %s | %s | %s |\n" % ('`'+esc_bs(row['SOURCETYPE'])+'`', '`'+esc_bs(row['EXAMPLE'])+'`', '`'+esc_bs(row['TIME_PREFIX'])+'`', '`'+esc_bs(row['TIME_FORMAT'])+'`', '`'+esc_bs(row['LINE_BREAKER'])+'`')
 
 with fileinput.FileInput('README.md', inplace=True) as file:
     for line in file:
         if line.startswith('| Sourcetype '):
             print(table, end='')
-        elif line.startswith('| :--------- ') or line.startswith('| it:'):
+        elif line.startswith('| :--------- ') or line.startswith('| `it:'):
             print("", end='')
         else:
             print(line, end='')

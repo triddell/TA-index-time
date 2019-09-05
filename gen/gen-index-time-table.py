@@ -6,7 +6,7 @@ esc_bs = lambda x: x.translate(str.maketrans({"|":  r"\|"}))
 
 table = ""
 
-with open('gen/index-time-props.csv') as csvfile:
+with open('lookups/index-time-props.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     
     table += "| Sourcetype | Example | Time Prefix | Time Format | Line Breaker |\n"

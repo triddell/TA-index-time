@@ -13,7 +13,7 @@ if not os.path.exists('local'):
 
 cfgfile = open('local/inputs.conf', 'w')
 
-with open('gen/index-time-props.csv') as csvfile:
+with open('lookups/index-time-props.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     
     config.add_section('default')

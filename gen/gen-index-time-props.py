@@ -6,7 +6,7 @@ config = configparser.RawConfigParser(allow_no_value=True)
 config.optionxform = str
 
 
-with open('gen/index-time-props.csv') as csvfile:
+with open('lookups/index-time-props.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     cfgfile = open('default/props.conf', 'w')
     
@@ -22,7 +22,7 @@ with open('gen/index-time-props.csv') as csvfile:
             config.set(row['SOURCETYPE'],'MAX_TIMESTAMP_LOOKAHEAD', row['MAX_TIMESTAMP_LOOKAHEAD'])
         config.set(row['SOURCETYPE'],'SHOULD_LINEMERGE', 'false')
         config.set(row['SOURCETYPE'],'TRUNCATE', '99999')
-        config.set(row['SOURCETYPE'],'TRANSFORMS-sourcetype', 'it-replace-sourcetype')
+        config.set(row['SOURCETYPE'],'TRANSFORMS-00000-it-replace-sourcetype', 'it-replace-sourcetype')
 
     config.write(cfgfile)
     cfgfile.close()

@@ -25,7 +25,7 @@ jobs:
       - name: Generate props.conf from csv
         run: gen/gen-index-time-props.py
       - name: Create tgz artifact
-        run: tar --transform 's|^|/TA-index-time/|' -czf "TA-index-time_$GITVERSION_SEMVER.tgz" appserver default metadata
+        run: tar --transform 's|^|/TA-index-time/|' -czf "TA-index-time_$GITVERSION_SEMVER.tgz" default lookups metadata
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
